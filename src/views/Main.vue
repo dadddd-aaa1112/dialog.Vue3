@@ -10,9 +10,9 @@
         </Dialog>
       </div>
 
-      <div v-if="error" >
+      <div v-if="error">
         <p class="bg-red-100 border border-red-400 text-red-700 my-2 px-3 py-2 rounded-md relative">
-          {{error}}</p>
+          {{ error }}</p>
       </div>
 
       <my-input v-model="message" :placeholderInput="placeholderInput"></my-input>
@@ -37,7 +37,11 @@ const dialogVisible = ref(false)
 const placeholderInput = 'Введите сообщение'
 
 const show = () => {
-  dialogVisible.value = true
+  return new Promise((resolve, reject) => {
+    resolve(dialogVisible.value = true)
+  })
+      .catch(err => console.error('Error: ', err))
+      .finally(() => console.log('finally'))
 }
 
 const messages = ref([])
@@ -54,8 +58,6 @@ const sendMessages = () => {
     error.value = 'Сообщение не может быть пустым'
     message.value = ''
   }
-
-
 
 
 }
